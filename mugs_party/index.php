@@ -16,7 +16,7 @@ require_once 'config/connect.php';
  *
  *
  * (10 points, 2 points par emplacement)
- * Tu dois déclarer une variable qui porte le nom du site: Mugs Party
+ * Tu dois déclarer une variable qui porte le nom du site: Mugs Party $nomDuSite = 'Mugs Party';
  * Le titre du site Mugs Party, est placé à 5 endroits différents de la page.
  * (référence image: exemple-titre-site.jpg).
  *
@@ -30,63 +30,72 @@ require_once 'config/connect.php';
  *  - tu dois insérer les tailles disponibles pour les mugs: (S M XL XXL)
  *  - tu dois exporter la table dans le dossier sql.
  */
+$nomDuSite = 'Mugs Party';
+$couleursDispo = ['Noir', 'Blanc', 'Violet', 'Marron', 'Rose', 'Vert', 'Jaune'];
 ?>
 
 <!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <title></title>
-        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-        <link rel="manifest" href="images/favicon/site.webmanifest">
-        <link rel="stylesheet" href="css/bootstrap-v4.6.0.css">
-        <link rel="stylesheet" href="css/font-awesome-4.7.0.css">
-        <link rel="stylesheet" href="css/custom.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/"><img src="images/logo.png" alt="logo" class="mr-2"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                </ul>
-                <button type="button" id="toggle-sorting-bar" class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-            </div>
-        </nav>
-        <div class="jumbotron jumbotron-fluid pb-5">
-            <div class="container">
-                <h1 class="display-4">Mugs & Tasses</h1>
-                <p class="lead"><a href="#">Découvrez notre sélection.</a> <small><em>Commande simple et livraison rapide.</em></small></p>
-                <div class="new">
 
-                    <?php
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title><?= $nomDuSite; ?></title>
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="images/favicon/site.webmanifest">
+    <link rel="stylesheet" href="css/bootstrap-v4.6.0.css">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><img src="images/logo.png" alt="logo" class="mr-2"><?= $nomDuSite; ?></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+            <button type="button" id="toggle-sorting-bar" class="btn btn-outline-secondary my-2 my-sm-0"
+                type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid pb-5">
+        <div class="container">
+            <h1 class="display-4">Mugs & Tasses</h1>
+            <p class="lead"><a href="#">Découvrez notre sélection.</a> <small><em>Commande simple et livraison
+                        rapide.</em></small></p>
+            <div class="new">
+
+                <?php
                     /**
                      * (3 points).
                      *
                      * Le lien "Ajouter un mug" ci dessous doit être visible et accessible seulement pour les utilisateurs connectés (user).
                      */
-                    echo '<a href="#" class="btn btn-outline-secondary"><i class="fa fa-plus mr-2"></i>Ajouter un mug</a>';
+                    if (isset($_SESSION['user'])) {
+                        echo '<a href="#" class="btn btn-outline-secondary"><i class="fa fa-plus mr-2"></i>Ajouter un mug</a>';
+                    }
                     ?>
 
-                </div>
             </div>
         </div>
+    </div>
 
-        <?php
+    <?php
         /**
          * (45 points).
          *
@@ -118,16 +127,73 @@ require_once 'config/connect.php';
          *  - Dans ce fichier tu mettras ta logique pour la barre de tri.
          *
          * Seulement sur la page index.php, la barre de recherches doit garder les valeurs sélectionnées par l'utilisateur final
-         * Exemple: Si l'utilisateur final demande tous les mugs qui ne sont pas en stock, une fois la recherches effectuée, GET truc va dans url
+         * Exemple: Si l'utilisateur final demande tous les mugs qui ne sont pas en stock, une fois la recherches effectuée,
          *          la barre de recherches doit continuer à afficher le select En stock à Non. (idem pour les autres champs)
          */
+        $sql = 'SELECT * FROM mugs WHERE image IS NOT NULL';
+        $mugs = query($sql);
+        //echo $mugs[0]['id'];
         ?>
 
-        <div id="sorting-bar" class="container-fluid sorting-bar">
-            <!-- ton code html, php de la sorting-bar -->
-        </div>
+    <div id="sorting-bar" class="container-fluid sorting-bar">
+        <!-- ton code html, php de la sorting-bar -->
+        <form class="form-inline" method="get">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">En stock:</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>All</option>
+                <option value="1">Oui</option>
+                <option value="1">Non</option>
+            </select>
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Tarif</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>all</option>
+                <option value="1">Supérieur</option>
+                <option value="2">Inférieur</option>
+            </select>
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">à</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>1</option>
+                <option value="1">Croissant</option>
+                <option value="2">Décroissant</option>
+            </select>€
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Couleur:</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>All</option>
+                <?php
+                foreach ($couleursDispo as $color) {
+                    echo '<option value="'.$c++.'"name="'.$color.'">'.$color.'</option>';
+                }
 
-        <?php
+                ?>
+            </select>
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Taille:</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>All</option>
+                <?php
+                        $sql = 'SELECT sizes FROM sizes';
+                        foreach (query($sql) as $tailleMug) {
+                            echo '<option value="'.$s++.'" name="'.$tailleMug['sizes'].'">'.$tailleMug['sizes'].'</option>';
+                        }
+                        ?>
+            </select>
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Nouveautés:</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>All</option>
+                <option value="1">Oui</option>
+                <option value="2">Non</option>
+            </select>
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Tendances:</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>All</option>
+                <option value="1">Oui</option>
+                <option value="2">Non</option>
+            </select>
+            <button type="button" class="btn btn-success">Trier</button>
+            <a class="btn btn-danger" href="/" role="button">Reset</a>
+        </form>
+    </div>
+
+    <?php
         /**
          * (30 points).
          *
@@ -161,50 +227,74 @@ require_once 'config/connect.php';
          */
         ?>
 
-        <div class="container mt-40">
-            <!-- ici ton code PHP pour afficher tous les mugs ou les mugs trouvés. -->
-            <div class="row">
-            </div>
+    <div class="container mt-40">
+    <div class="row">
+        <!-- ici ton code PHP pour afficher tous les mugs ou les mugs trouvés. -->
+        <?php
+        foreach ($mugs as $mug) {
+            echo ' <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">';
+            echo '<div class="card">';
+            echo '<img src="/images/'.$mug['image'].'" class="card-img-top" alt="404">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">'.$mug['title'].'</h5>';
+            echo '<p class="card-text">'.$mug['description'].'</p><br>';
+            echo '<p class="card-text">Prix :'.$mug['price'].'€</p>';
+            echo '<p class="card-text">Stock:'.$mug['qte'].'';
+            if ($mug['qte'] == 0) {
+                echo '<i class="fa fa-times" aria-hidden="true"></i>
+                Pièce</p>';
+            } elseif ($mug['qte'] === 1) {
+                echo '<i class="fa fa-check" aria-hidden="true"></i>
+                Pièce</p>';
+            } else {
+                echo '<i class="fa fa-check" aria-hidden="true"></i>
+                Pièces</p>';
+            }
+            echo '</div></div></div>';
+        }
+        ?>
         </div>
+    </div>
 
-        <div class="spacer spacer-md"></div>
-        <footer role="contentinfo" id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-sm-6 footer-box">
-                        <p style="padding-right:80px;"><h4>.</h4>On y trouve de tout et surtout du n'importe quoi !!</p>
-                        <h3 class="footer-heading">Nous suivre</h3>
-                        <ul class="social-icons">
-                            <li><a href="#" target="_blank"><i class="rounded-circle fa fa-google"></i></a></li>
-                            <li><a href="#" target="_blank"><i class="rounded-circle fa fa-twitter"></i></a></li>
-                            <li><a href="#" target="_blank"><i class="rounded-circle fa fa-facebook"></i></a></li>	
-                            <li><a href="#" target="_blank"><i class="rounded-circle fa fa-rss"></i></a></li>
-                        </ul>
-                        <h3 class="footer-heading">Contact</h3>
-                        <ul class="contact-info">
-                            <li><span class="icon fa fa-home"></span>, 67000 Strasbourg</li>
-                            <li><span class="icon fa fa-phone"></span>03.99.98.97.96</li>
-                            <li><span class="icon fa fa-envelope"></span>contact@mugsparty.fr</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-sm-6 footer-box">
-                        <h3 class="footer-heading">Liens</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" target="_blank">Home</a></li>
-                            <li><a href="#" target="_blank">About us</a></li>
-                            <li><a href="#" target="_blank">Contact</a></li>
-                            <li><a href="#" target="_blank">Legal mentions</a></li>
-                        </ul>
-                        <h3 class="footer-heading">Catégories</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" target="_blank">Mugs</a></li>
-                            <li><a href="#" target="_blank">Tasses</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 col-sm-12 footer-box">
-                        <h3 class="footer-heading">Nous contacter</h3>
+    <div class="spacer spacer-md"></div>
+    <footer role="contentinfo" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 footer-box">
+                    <p style="padding-right:80px;">
+                    <h4><?= $nomDuSite; ?></h4>On y trouve de tout et surtout du n'importe quoi !!</p>
+                    <h3 class="footer-heading">Nous suivre</h3>
+                    <ul class="social-icons">
+                        <li><a href="#" target="_blank"><i class="rounded-circle fa fa-google"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="rounded-circle fa fa-twitter"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="rounded-circle fa fa-facebook"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="rounded-circle fa fa-rss"></i></a></li>
+                    </ul>
+                    <h3 class="footer-heading">Contact</h3>
+                    <ul class="contact-info">
+                        <li><span class="icon fa fa-home"></span><?= $nomDuSite; ?>, 67000 Strasbourg</li>
+                        <li><span class="icon fa fa-phone"></span>03.99.98.97.96</li>
+                        <li><span class="icon fa fa-envelope"></span>contact@mugsparty.fr</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 footer-box">
+                    <h3 class="footer-heading">Liens</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" target="_blank">Home</a></li>
+                        <li><a href="#" target="_blank">About us</a></li>
+                        <li><a href="#" target="_blank">Contact</a></li>
+                        <li><a href="#" target="_blank">Legal mentions</a></li>
+                    </ul>
+                    <h3 class="footer-heading">Catégories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" target="_blank">Mugs</a></li>
+                        <li><a href="#" target="_blank">Tasses</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-12 footer-box">
+                    <h3 class="footer-heading">Nous contacter</h3>
 
-                        <?php
+                    <?php
                         /**
                          * (7 points).
                          *
@@ -214,35 +304,38 @@ require_once 'config/connect.php';
                          * Contrainte 4: Obligation d'utiliser la function dump();
                          */
                         ?>
-                        <form>
-                            <div class="form-group row">
-                                <label for="email" class="col-sm-2 col-form-label">Votre email</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="username@yahoo.fr">
-                                </div>
+                    <form>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">Votre email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                    placeholder="username@yahoo.fr">
                             </div>
-                            <div class="form-group row">
-                                <label for="message" class="col-sm-2 col-form-label">Votre message</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="message" rows="3" placeholder="..."></textarea>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-send mr-2"></i>Envoyer</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-12 footer-box">
-                        <div class="copyright">
-                        <p>&copy;  2021. Tous droits réservés.</p>
                         </div>
+                        <div class="form-group row">
+                            <label for="message" class="col-sm-2 col-form-label">Votre message</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="message" rows="3" placeholder="..."></textarea>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-outline-secondary"><i
+                                    class="fa fa-send mr-2"></i>Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12 footer-box">
+                    <div class="copyright">
+                        <p>&copy;<?= $nomDuSite; ?> 2021. Tous droits réservés.</p>
                     </div>
                 </div>
             </div>
-        </footer>
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/custom.js"></script>
-    </body>
+        </div>
+    </footer>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
 </html>

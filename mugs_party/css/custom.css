@@ -25,6 +25,24 @@ div.jumbotron.jumbotron-fluid {
 .mt-40 {
     margin-top:40px;
 }
+.card:hover {
+    background-color :rgba(240, 255, 255, 1);
+    cursor: grab;
+}
+.card-title:hover {
+    color :rgba(129, 25, 124, 1)
+}
+.card-title {
+    text-transform: uppercase;
+}
+
+.fa-times {
+    color:rgba(206, 14, 14, 1);
+}
+.fa-check {
+    color:rgba(0, 128, 0, 1);
+}
+
 /* FOOTER */
 #footer {
     clear: both;
